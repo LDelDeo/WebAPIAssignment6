@@ -11,6 +11,8 @@ app.use(express.json());
 app.use(cors()); //Allows us to make requests from our game.
 app.use(bodyParser.json());
 
+const port = process.env.PORT || 4000;
+
 
 const FILE_PATH = "player.json";
 
@@ -172,8 +174,8 @@ app.delete("/player/:id", async (req, res) => {
 });
 
 
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+app.listen(port, () => {
+    console.log('Server is running on ${port}');
  });
 
 
