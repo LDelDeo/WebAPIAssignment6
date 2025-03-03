@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors()); //Allows us to make requests from our game.
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 4000;
+const port = 443;
 
 
 const FILE_PATH = "player.json";
