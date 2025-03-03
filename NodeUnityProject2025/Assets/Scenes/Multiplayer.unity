@@ -1177,6 +1177,7 @@ GameObject:
   - component: {fileID: 1862937346}
   - component: {fileID: 1862937349}
   - component: {fileID: 1862937348}
+  - component: {fileID: 1862937350}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1252,7 +1253,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862937345}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
   m_Name: 
@@ -1266,7 +1267,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862937345}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
   m_Name: 
@@ -1283,6 +1284,20 @@ MonoBehaviour:
   clientMaxReceivesPerTick: 1000
   clientSendQueueLimit: 10000
   clientReceiveQueueLimit: 10000
+--- !u!114 &1862937350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862937345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2a06aca2e6d8d4bb5243adae64d4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverAddress: webapiassignment6.onrender.com
+  serverPort: 443
 --- !u!1 &1876841448
 GameObject:
   m_ObjectHideFlags: 0
