@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cors()); //Allows us to make requests from our game.
 app.use(bodyParser.json());
 
+
 const FILE_PATH = "player.json";
 
 //Connection for MongoDB
@@ -64,7 +65,7 @@ db.once("open", ()=>{
 
 app.get("/player", async (req, res) => {
     try {
-        const players = await Player.find().sort({ name: 1 });  // Sort alphabetically by name
+        const players = await Player.find().sort({ screenName: 1 });  // Sort alphabetically by name
         if (!players) {
             return res.status(404).json({ error: "Players not found" });
         }
@@ -82,7 +83,9 @@ app.get("/player/:id", async (req, res) => {
     try {
         console.log("Searching for playerid:", req.params.id); // Debug log
 
-        const player = await Player.findOne({ playerid: req.params.id }); // CORRECT
+        const player = await Player.findOne({ playerid: req.params.id }); // CORRECT (not case sensitive)
+        //const player = await Player.findOne({ playerid: { $regex: new RegExp(`^${req.params.id}$`, "i") } }); //case sensitive
+
 
         if (!player) {
             console.log("Player not found:", req.params.id);
@@ -123,7 +126,7 @@ app.post("/sentdatatodb", async (req,res)=>{
         });
         //Save to database
         await newPlayer.save();
-        res.json({message:"Player Added Successfully"});
+        res.json({message:"Player Added Successfully    Player ID: ", playerid:newPlayer.playerid});
     }
     catch(error){
         res.status(500).json({error:"Failed to add player",playerid:newPlayer.playerid, name:newPlayer.name});
@@ -169,6 +172,9 @@ app.delete("/player/:id", async (req, res) => {
 });
 
 
-app.listen(3000, ()=>{
-    console.log("Running on port 3000");
-})
+app.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
+ });
+
+
+
