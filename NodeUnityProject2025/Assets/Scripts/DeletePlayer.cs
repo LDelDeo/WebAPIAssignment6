@@ -31,13 +31,16 @@ public class DeletePlayer : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("Player deleted successfully: " + request.downloadHandler.text);
+            //Debug.Log("Player deleted successfully: " + request.downloadHandler.text);
             responseText.text = "Player Deleted Successfully!";
+            responseText.color = Color.green;
+            playerIDInput.text = "";
         }
         else
         {
-            Debug.LogError("Error deleting player: " + request.error);
-            responseText.text = "Error Deleting Player";
+            //Debug.LogError("Error deleting player: " + request.error);
+            responseText.text = "Error Deleting Player/Player Not Found";
+            responseText.color = Color.red;
         }
     }
 }

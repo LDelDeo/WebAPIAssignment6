@@ -14,10 +14,10 @@ public class SendPlayerData : MonoBehaviour
 
     public void SendData()
     {
-        if (screenName.text != "" && firstName.text != "" && lastName.text != "" && dateStarted.text != "" && score.text != "")
+        if (screenName.text != "" && firstName.text != "" && lastName.text != "" /*&& dateStarted.text != "" && score.text != ""*/)
         {
-            int scoreData = int.Parse(score.text);
-            post.SetupPlayerData(screenName.text, firstName.text, lastName.text, dateStarted.text, scoreData);
+            //int scoreData = int.Parse(score.text);
+            post.SetupPlayerData(screenName.text, firstName.text, lastName.text/*, dateStarted.text, scoreData*/);
         }
     }
     

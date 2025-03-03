@@ -7,7 +7,7 @@ using System.Text;
 
 public class FetchData : MonoBehaviour
 {
-    string serverURL = "http://localhost:3000/player";
+    string serverURL =  "http://localhost:3000/player"; //"http://192.168.1.13:3000/player";
     PlayerData player;
     public GameObject playerData;
     

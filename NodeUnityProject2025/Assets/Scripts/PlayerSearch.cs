@@ -1,18 +1,23 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using TMPro;  // Import TextMeshPro
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerSearch : MonoBehaviour
 {
-    public TextMeshProUGUI playerDataText;  // UI element to display player data
-    public TMP_InputField playerIdInput;    // Input field for entering player ID
-    private string apiUrl = "http://localhost:3000/player/";  // API endpoint
+    public TextMeshProUGUI playerDataText;
+    public TMP_InputField playerIdInput;
+    public GameObject loginButton;
+    private string apiUrl = "http://localhost:3000/player/";
 
-    // Function to search for a player by ID
+    public void Start()
+    {
+        loginButton.SetActive(false);
+    }
     public void SearchPlayer()
     {
-        string playerId = playerIdInput.text.Trim(); // Get input from the user
+        string playerId = playerIdInput.text.Trim();
         if (!string.IsNullOrEmpty(playerId))
         {
             StartCoroutine(GetPlayerData(playerId));
@@ -23,7 +28,6 @@ public class PlayerSearch : MonoBehaviour
         }
     }
 
-    // Coroutine to fetch player data from the server
     IEnumerator GetPlayerData(string playerId)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(apiUrl + playerId))
@@ -41,7 +45,14 @@ public class PlayerSearch : MonoBehaviour
 
                 if (player != null && !string.IsNullOrEmpty(player.screenName))
                 {
+                    // Store player data in PlayerDataManager
+                    PlayerDataManager.SetPlayerData(player);
                     playerDataText.text = $"Player Found:\nUsername: {player.screenName}\nFirst Name: {player.firstName}\nLast Name: {player.lastName}\nDate Started: {player.dateStarted}\nScore: {player.score}";
+
+                    loginButton.SetActive(true);
+
+                    // Load the next scene
+                    //SceneManager.LoadScene(1);
                 }
                 else
                 {
@@ -51,7 +62,11 @@ public class PlayerSearch : MonoBehaviour
         }
     }
 
-    // Player class to match JSON response
+    public void Login()
+    {
+        SceneManager.LoadScene(1);
+        loginButton.SetActive(false);
+    }
     [System.Serializable]
     public class Player
     {

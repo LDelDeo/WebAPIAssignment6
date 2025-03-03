@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
@@ -10,60 +9,86 @@ public class PostData : MonoBehaviour
     string serverURL = "http://localhost:3000/sentdatatodb";
     PlayerData player;
     public TMP_Text responseText;
-    void Start()
+
+    [System.Serializable]
+    public class PlayerData
     {
-        //SetupPlayerData("CobraKai", "Miguel", "Diaz", "1/1/25", 25);
+        public string screenName;
+        public string firstName;
+        public string lastName;
+        public string dateStarted;
+        public int score;
     }
 
-    public void SetupPlayerData(string screenName, string firstName, string lastName, string dateStarted, int score)
+    [System.Serializable]
+    public class PlayerResponse
     {
-        player = new PlayerData();
+        public string message;
+        public string playerid;
+    }
 
-        player.screenName = screenName;
-        player.firstName = firstName;
-        player.lastName = lastName;
-        player.dateStarted = dateStarted;
-        player.score = score;
+    void Start()
+    {
+        // Example of calling SetupPlayerData
+        // SetupPlayerData("CobraKai", "Miguel", "Diaz");
+    }
+
+    public void SetupPlayerData(string screenName, string firstName, string lastName)
+    {
+        player = new PlayerData
+        {
+            screenName = screenName,
+            firstName = firstName,
+            lastName = lastName,
+            dateStarted = "",
+            score = 0
+        };
 
         string json = JsonUtility.ToJson(player);
-        Debug.Log(json);
+        Debug.Log("Sending JSON: " + json);
         StartCoroutine(PostPlayerData(json));
     }
 
     public IEnumerator PostPlayerData(string json)
     {
         byte[] jsonToSend = Encoding.UTF8.GetBytes(json);
-        UnityWebRequest request = new UnityWebRequest(serverURL, "POST");
-        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-        request.downloadHandler = new DownloadHandlerBuffer();
+        UnityWebRequest request = new UnityWebRequest(serverURL, "POST")
+        {
+            uploadHandler = new UploadHandlerRaw(jsonToSend),
+            downloadHandler = new DownloadHandlerBuffer()
+        };
         request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
 
-        if(request.result == UnityWebRequest.Result.Success)
+        if (request.result == UnityWebRequest.Result.Success)
         {
             string response = request.downloadHandler.text;
-            //Success
-            Debug.Log($"Data Sent: {request.downloadHandler.text}");
+            Debug.Log("Raw Server Response: " + response); // LOG FULL RESPONSE
 
-            string newPlayerId = ExtractPlayerId(response);
-            Debug.Log("New Player ID: " + newPlayerId);
-            responseText.text = "Player Add Successfully!";
+            // Deserialize the server response to extract player ID and message
+            PlayerResponse playerResponse = JsonUtility.FromJson<PlayerResponse>(response);
+
+            if (playerResponse != null && !string.IsNullOrEmpty(playerResponse.playerid))
+            {
+                string playerId = playerResponse.playerid;
+                string message = playerResponse.message;
+
+                // Display player ID and message in responseText
+                responseText.text = $"{message} {playerId}\nDon't share this with anyone, write this string down.";
+                responseText.color = Color.green;
+            }
+            else
+            {
+                responseText.text = "Player added, but no ID received!";
+                responseText.color = Color.red;
+            }
         }
         else
         {
-            //Failed
             Debug.LogError($"Error sending data: {request.error}");
+            responseText.text = "Error sending data!";
+            responseText.color = Color.red;
         }
     }
-
-    public string ExtractPlayerId(string jsonResponse)
-    {
-        int index = jsonResponse.IndexOf("\"playerid\":\"") + 12;
-        if (index < 12) return "";
-        int endIndex = jsonResponse.IndexOf("\"", index);
-        return jsonResponse.Substring(index, endIndex - index);
-    }
-
-
 }
