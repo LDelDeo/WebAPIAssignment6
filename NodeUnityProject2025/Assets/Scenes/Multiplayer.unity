@@ -1206,7 +1206,7 @@ MonoBehaviour:
   offlineSceneLoadDelay: 0
   transport: {fileID: 1862937349}
   networkAddress: webapiassignment6.onrender.com
-  maxConnections: 100
+  maxConnections: 10
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
