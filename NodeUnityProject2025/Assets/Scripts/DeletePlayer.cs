@@ -8,7 +8,8 @@ public class DeletePlayer : MonoBehaviour
 {
     public TMP_InputField playerIDInput;  // Reference to the input field where the user types the player ID
     public TMP_Text responseText;
-    private string serverURL = "http://localhost:3000/player/";  // Replace with your actual server URL
+    //private string serverURL = "http://localhost:3000/player/";  // Replace with your actual server URL
+    private string serverURL = "https://webapiassignment6.onrender.com/player/";
 
     public void DeleteUser()
     {

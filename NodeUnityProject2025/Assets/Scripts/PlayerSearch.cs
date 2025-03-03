@@ -9,7 +9,8 @@ public class PlayerSearch : MonoBehaviour
     public TextMeshProUGUI playerDataText;
     public TMP_InputField playerIdInput;
     public GameObject loginButton;
-    private string apiUrl = "http://localhost:3000/player/";
+    //private string apiUrl = "http://localhost:3000/player/";
+    private string apiUrl = "https://webapiassignment6.onrender.com/player/";
 
     public void Start()
     {

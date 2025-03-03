@@ -7,7 +7,8 @@ using TMPro;
 
 public class UpdateData : MonoBehaviour
 {
-    string serverURL = "http://localhost:3000/updatePlayer";
+    //string serverURL = "http://localhost:3000/updatePlayer";
+    string serverURL = "https://webapiassignment6.onrender.com/updatePlayer";
     public TMP_InputField idInputField;
     public TMP_InputField screenNameInputField;
     public TMP_InputField firstNameInputField;

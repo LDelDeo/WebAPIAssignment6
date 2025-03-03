@@ -6,7 +6,8 @@ using TMPro;
 
 public class PostData : MonoBehaviour
 {
-    string serverURL = "http://localhost:3000/sentdatatodb";
+    //string serverURL = "http://localhost:3000/sentdatatodb";
+    string serverURL = "https://webapiassignment6.onrender.com/sentdatatodb";
     PlayerData player;
     public TMP_Text responseText;
 

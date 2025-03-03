@@ -6,7 +6,8 @@ using System.Collections;
 public class DisplayDataManager : MonoBehaviour
 {
     public TextMeshProUGUI playerDataText;
-    private string apiUrl = "http://localhost:3000/updatePlayer"; // Updated route for updating player data
+    //private string apiUrl = "http://localhost:3000/updatePlayer"; // Updated route for updating player data
+    private string apiUrl = "https://webapiassignment6.onrender.com/updatePlayer";
 
     void Start()
     {

@@ -6,8 +6,8 @@ using TMPro;  // Include the TextMeshPro namespace
 public class PlayerDataFetcher : MonoBehaviour
 {
     public TextMeshProUGUI playerDataText;  // Change to TextMeshProUGUI for TextMeshPro
-    private string apiUrl = "http://localhost:3000/player/";  // The endpoint of your API
-
+    //private string apiUrl = "http://localhost:3000/player/";  // The endpoint of your API
+    private string apiUrl = "https://webapiassignment6.onrender.com/player/";
     // Start is called before the first frame update
     void Update()
     {
