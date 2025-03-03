@@ -5,7 +5,7 @@ using Mirror;
 
 public class PlayerConnect : MonoBehaviour
 {
-    public string networkAddress = "your-server.onrender.com"; // Replace with your online server URL
+    public string networkAddress = "http://webapiassignment6.onrender.com/";
 
     void Start()
     {
