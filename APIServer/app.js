@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors()); //Allows us to make requests from our game.
 app.use(bodyParser.json());
 
-const port = 443;
+//const port = 443;
 
 
 const FILE_PATH = "player.json";
@@ -174,7 +174,7 @@ app.delete("/player/:id", async (req, res) => {
 });
 
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(7777, '0.0.0.0', () => {
     console.log('Server is running on ${port}');
  });
 
