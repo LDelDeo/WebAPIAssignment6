@@ -174,8 +174,8 @@ app.delete("/player/:id", async (req, res) => {
 });
 
 
-app.listen(7777, '0.0.0.0', () => {
-    console.log('Server is running on ${port}');
+app.listen(7777, 'webapiassignment6.onrender.com/', () => {
+    console.log(`Server is running on ${port}`);
  });
 
 
