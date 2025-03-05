@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/APIRoutesExample.unity
     guid: 4b5299463f812a34ca2dadcf28a5d500
   - enabled: 1
+    path: Assets/Scenes/PhotonFusion.unity
+    guid: 17b688c5b6f93854095197e0791d87c1
+  - enabled: 1
     path: Assets/Scenes/Multiplayer.unity
     guid: 72ef994868234f745ad02b0589a9abee
   m_configObjects: {}
