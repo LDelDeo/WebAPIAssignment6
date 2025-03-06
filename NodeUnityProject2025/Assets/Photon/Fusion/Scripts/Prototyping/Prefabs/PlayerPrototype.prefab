@@ -554,8 +554,8 @@ MonoBehaviour:
   WordCount: 0
   _interpolationDataSource: 0
   _MovementDirection: {x: 0, y: 0, z: 0}
-  TransformLocal: 0
   Speed: 6
+  MouseSensitivity: 200
 --- !u!136 &8358015882023670600
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -657,7 +657,7 @@ MonoBehaviour:
   acceleration: 10
   braking: 10
   maxSpeed: 2
-  rotationSpeed: 15
+  rotationSpeed: 106.43
   _IsGrounded: 0
   _Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &386434161213471686
