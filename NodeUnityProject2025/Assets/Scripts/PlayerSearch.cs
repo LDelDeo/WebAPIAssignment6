@@ -9,8 +9,9 @@ public class PlayerSearch : MonoBehaviour
     public TextMeshProUGUI playerDataText;
     public TMP_InputField playerIdInput;
     public GameObject loginButton;
-    //private string apiUrl = "http://localhost:3000/player/";
-    private string apiUrl = "https://webapiassignment6.onrender.com/player/";
+    public DisplayDataManager displayDataManager;
+    private string apiUrl = "http://localhost:3000/player/";
+    //private string apiUrl = "https://webapiassignment6.onrender.com/player/";
 
     public void Start()
     {
@@ -48,7 +49,7 @@ public class PlayerSearch : MonoBehaviour
                 {
                     // Store player data in PlayerDataManager
                     PlayerDataManager.SetPlayerData(player);
-                    playerDataText.text = $"Player Found:\nUsername: {player.screenName}\nFirst Name: {player.firstName}\nLast Name: {player.lastName}\nDate Started: {player.dateStarted}\nScore: {player.score}";
+                    playerDataText.text = $"Player Found:\nUsername: {player.screenName}\nFirst Name: {player.firstName}\nLast Name: {player.lastName}\nGames Played: {player.gamesPlayed}\nDate Started: {player.dateStarted}\nScore: {player.score}";
 
                     loginButton.SetActive(true);
 
@@ -65,6 +66,7 @@ public class PlayerSearch : MonoBehaviour
 
     public void Login()
     {
+        displayDataManager.IncreaseGamesPlayed();
         SceneManager.LoadScene(1);
         loginButton.SetActive(false);
     }
@@ -75,6 +77,7 @@ public class PlayerSearch : MonoBehaviour
         public string screenName;
         public string firstName;
         public string lastName;
+        public int gamesPlayed;
         public string dateStarted;
         public int score;
     }

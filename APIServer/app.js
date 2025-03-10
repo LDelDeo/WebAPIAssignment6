@@ -5,11 +5,14 @@ const fs = require("fs");
 const cors = require("cors");
 const Player = require("./models/Player");
 const {nanoid} = require("nanoid");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
 app.use(cors()); //Allows us to make requests from our game.
 app.use(bodyParser.json());
+app.use(express.static("public"));
+
 
 //const port = 443;
 
@@ -64,6 +67,21 @@ db.once("open", ()=>{
 //         res.status(500).json({ error: "Failed to retrieve players" });
 //     }
 // });
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/topten", async (req, res) => {
+    try {
+        const topPlayers = await Player.find().sort({ score: -1 }).limit(10); // Sort by highest score
+
+        res.json({ players: topPlayers });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to retrieve top players" });
+    }
+});
+
 
 app.get("/player", async (req, res) => {
     try {
@@ -123,6 +141,7 @@ app.post("/sentdatatodb", async (req,res)=>{
             screenName:newPlayerData.screenName,
             firstName:newPlayerData.firstName,
             lastName:newPlayerData.lastName,
+            gamesPlayed:newPlayerData.gamesPlayed,
             dateStarted:newPlayerData.dateStarted,
             score:newPlayerData.score
         });
@@ -148,6 +167,7 @@ app.post("/updatePlayer", async(req,res)=>{
     player.screenName = playerData.screenName;
     player.firstName = playerData.firstName;
     player.lastName = playerData.lastName;
+    player.gamesPlayed = playerData.gamesPlayed;
     player.dateStarted = playerData.dateStarted;
     player.score = playerData.score;
 
@@ -155,6 +175,33 @@ app.post("/updatePlayer", async(req,res)=>{
 
     res.json({message:"Player updated", player});
 });
+
+app.post("/onlineUpdatePlayer", async (req, res) => {
+    try {
+        const { playerid, firstName, lastName, screenName } = req.body;
+
+        // Find existing player
+        const player = await Player.findOne({ playerid });
+
+        if (!player) {
+            return res.status(404).json({ message: "Player not found" });
+        }
+
+        // Update only the provided fields
+        if (firstName) player.firstName = firstName;
+        if (lastName) player.lastName = lastName;
+        if (screenName) player.screenName = screenName;
+
+        // Save without modifying other properties (e.g., score, gamesPlayed)
+        await player.save();
+
+        res.json({ message: "Player updated successfully", player });
+    } catch (error) {
+        res.status(500).json({ error: "Error updating player" });
+    }
+});
+
+
 
 app.delete("/player/:id", async (req, res) => {
     try {
@@ -174,8 +221,8 @@ app.delete("/player/:id", async (req, res) => {
 });
 
 
-app.listen(7777, 'webapiassignment6.onrender.com/', () => {
-    console.log(`Server is running on ${port}`);
+app.listen(3000,  () => {
+    console.log(`Server is running on localhost:3000`);
  });
 
 

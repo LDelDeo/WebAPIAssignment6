@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="styles.css">
+    <title>Top 10 Mini John Players</title>
+    <script>
+        async function fetchTopPlayers() {
+            const response = await fetch("http://localhost:3000/topten");
+            const data = await response.json();
+            const playerList = document.getElementById("playerList");
+
+            playerList.innerHTML = ""; // Clear existing data
+
+            data.players.forEach((player, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${player.screenName}</td>
+                    <td>${player.score}</td>
+                `;
+                playerList.appendChild(row);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchTopPlayers);
+    </script>
+</head>
+<body>
+    <h1>Top 10 Mini John Players</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Screen Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody id="playerList"></tbody>
+    </table>
+    <br>
+    <a href="index.html"><button>Back to Home</button></a>
+</body>
+</html>

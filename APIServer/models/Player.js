@@ -6,6 +6,7 @@ const playerSchema = new mongoose.Schema({
     screenName:String,
     firstName:String,
     lastName:String,
+    gamesPlayed:Number,
     dateStarted:String,
     score:Number
 });

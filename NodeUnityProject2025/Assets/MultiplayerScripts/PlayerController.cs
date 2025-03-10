@@ -5,6 +5,7 @@ public class PlayerController : NetworkBehaviour
 {
     public float speed = 5.0f;
     public float sensitivity = 2.0f;
+    public bool isFrozen;
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
         if (!isLocalPlayer) return;
+        if (isFrozen) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

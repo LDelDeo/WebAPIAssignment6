@@ -6,8 +6,8 @@ using TMPro;
 
 public class PostData : MonoBehaviour
 {
-    //string serverURL = "http://localhost:3000/sentdatatodb";
-    string serverURL = "https://webapiassignment6.onrender.com/sentdatatodb";
+    string serverURL = "http://localhost:3000/sentdatatodb";
+    //string serverURL = "https://webapiassignment6.onrender.com/sentdatatodb";
     PlayerData player;
     public TMP_Text responseText;
 
@@ -17,6 +17,7 @@ public class PostData : MonoBehaviour
         public string screenName;
         public string firstName;
         public string lastName;
+        public int gamesPlayed;
         public string dateStarted;
         public int score;
     }
@@ -41,6 +42,7 @@ public class PostData : MonoBehaviour
             screenName = screenName,
             firstName = firstName,
             lastName = lastName,
+            gamesPlayed = 0,
             dateStarted = "",
             score = 0
         };

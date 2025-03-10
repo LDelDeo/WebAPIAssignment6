@@ -6,8 +6,8 @@ using TMPro;  // Include the TextMeshPro namespace
 public class PlayerDataFetcher : MonoBehaviour
 {
     public TextMeshProUGUI playerDataText;  // Change to TextMeshProUGUI for TextMeshPro
-    //private string apiUrl = "http://localhost:3000/player/";  // The endpoint of your API
-    private string apiUrl = "https://webapiassignment6.onrender.com/player/";
+    private string apiUrl = "http://localhost:3000/player/";  // The endpoint of your API
+    //private string apiUrl = "https://webapiassignment6.onrender.com/player/";
     // Start is called before the first frame update
     void Update()
     {
@@ -44,7 +44,7 @@ public class PlayerDataFetcher : MonoBehaviour
                     playerDataText.text = "Player List:\n";
                     foreach (var player in playerResponse.players)
                     {
-                        playerDataText.text += $"Username: {player.screenName}, First Name: {player.firstName}, Last Name: {player.lastName}, Date Started: {player.dateStarted}, Score: {player.score}\n";
+                        playerDataText.text += $"Username: {player.screenName}, First Name: {player.firstName}, Last Name: {player.lastName}, Games Played: {player.gamesPlayed}, Date Started: {player.dateStarted}, Score: {player.score}\n";
                     }
                 }
                 else
@@ -63,6 +63,7 @@ public class PlayerDataFetcher : MonoBehaviour
         public string screenName;
         public string firstName;
         public string lastName;
+        public int gamesPlayed;
         public string dateStarted;
         public int score;
     }

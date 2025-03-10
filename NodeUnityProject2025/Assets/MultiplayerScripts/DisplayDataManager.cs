@@ -6,13 +6,14 @@ using System.Collections;
 public class DisplayDataManager : MonoBehaviour
 {
     public TextMeshProUGUI playerDataText;
-    //private string apiUrl = "http://localhost:3000/updatePlayer"; // Updated route for updating player data
-    private string apiUrl = "https://webapiassignment6.onrender.com/updatePlayer";
+    private string apiUrl = "http://localhost:3000/updatePlayer"; // Updated route for updating player data
+    //private string apiUrl = "https://webapiassignment6.onrender.com/updatePlayer";
 
     void Start()
     {
         // Initially set the player data text
         UpdatePlayerDataText();
+
     }
 
     void Update()
@@ -24,6 +25,13 @@ public class DisplayDataManager : MonoBehaviour
         }
     }
 
+    public void IncreaseGamesPlayed()
+    {
+        PlayerDataManager.GamesPlayed += 1;
+        UpdatePlayerDataText();
+        StartCoroutine(UpdatePlayerDataInDatabase(PlayerDataManager.PlayerID, PlayerDataManager.ScreenName, PlayerDataManager.FirstName, PlayerDataManager.LastName, PlayerDataManager.GamesPlayed, PlayerDataManager.DateStarted, PlayerDataManager.Score));
+    }
+
     private void IncreaseScore()
     {
         // Increment the player's score
@@ -33,7 +41,7 @@ public class DisplayDataManager : MonoBehaviour
         UpdatePlayerDataText();
 
         // Update the player score in the database (send POST request)
-        StartCoroutine(UpdatePlayerDataInDatabase(PlayerDataManager.PlayerID, PlayerDataManager.ScreenName, PlayerDataManager.FirstName, PlayerDataManager.LastName, PlayerDataManager.DateStarted, PlayerDataManager.Score));
+        StartCoroutine(UpdatePlayerDataInDatabase(PlayerDataManager.PlayerID, PlayerDataManager.ScreenName, PlayerDataManager.FirstName, PlayerDataManager.LastName, PlayerDataManager.GamesPlayed, PlayerDataManager.DateStarted, PlayerDataManager.Score));
     }
 
     private void UpdatePlayerDataText()
@@ -51,7 +59,7 @@ public class DisplayDataManager : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdatePlayerDataInDatabase(string playerId, string screenName, string firstName, string lastName, string dateStarted, int newScore)
+    private IEnumerator UpdatePlayerDataInDatabase(string playerId, string screenName, string firstName, string lastName, int gamesPlayed, string dateStarted, int newScore)
     {
         // Create a PlayerData object to send in the POST request
         PlayerData playerData = new PlayerData
@@ -60,6 +68,7 @@ public class DisplayDataManager : MonoBehaviour
             screenName = screenName,
             firstName = firstName,
             lastName = lastName,
+            gamesPlayed = gamesPlayed,
             dateStarted = dateStarted,
             score = newScore
         };
@@ -98,6 +107,7 @@ public class DisplayDataManager : MonoBehaviour
         public string screenName;
         public string firstName;
         public string lastName;
+        public int gamesPlayed;
         public string dateStarted;
         public int score;
     }

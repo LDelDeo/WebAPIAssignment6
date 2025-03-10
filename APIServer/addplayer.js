@@ -10,6 +10,7 @@ async function addPlayer(){
         screenName:"Jay",
         firstName:"Jason",
         lastName:"V",
+        gamesPlayed:"0",
         dateStarted:"2/3/23",
         score:2
     });

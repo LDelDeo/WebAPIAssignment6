@@ -7,6 +7,7 @@ public class PlayerTag : NetworkBehaviour
 {
     [SyncVar] public bool isIt = false;
     [SyncVar] public bool isFrozen = false;
+    public GameObject playerBody;
 
     private void OnCollisionEnter(Collision other) 
     {
@@ -19,10 +20,12 @@ public class PlayerTag : NetworkBehaviour
             if (isIt && !otherPlayer.isFrozen)
             {
                 otherPlayer.FreezePlayer();
+                otherPlayer.GetComponent<PlayerController>().isFrozen = true;
             }
             else if (!isIt && isFrozen && !otherPlayer.isFrozen)
             {
                 UnFreezePlayer();
+                otherPlayer.GetComponent<PlayerController>().isFrozen = false;
             }
         }
     }
@@ -45,6 +48,7 @@ public class PlayerTag : NetworkBehaviour
     void RPCUpdateState(bool frozen)
     {
         isFrozen = frozen;
-        //GetComponent<Renderer>().material.color = frozen ? Color.blue : Color.red;
+        playerBody.GetComponent<Renderer>().material.color = frozen ? Color.blue : Color.red;
+        GetComponent<PlayerController>().isFrozen = frozen;
     }
 }

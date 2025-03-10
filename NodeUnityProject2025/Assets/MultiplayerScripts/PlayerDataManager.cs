@@ -6,6 +6,7 @@ public static class PlayerDataManager
     public static string ScreenName;
     public static string FirstName;
     public static string LastName;
+    public static int GamesPlayed;
     public static string DateStarted;
     public static int Score;
 
@@ -16,6 +17,7 @@ public static class PlayerDataManager
         ScreenName = player.screenName;
         FirstName = player.firstName;
         LastName = player.lastName;
+        GamesPlayed = player.gamesPlayed;
         DateStarted = player.dateStarted;
         Score = player.score;
     }
